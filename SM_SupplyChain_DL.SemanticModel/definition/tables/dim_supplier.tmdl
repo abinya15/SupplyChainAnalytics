@@ -1,0 +1,34 @@
+table dim_supplier
+	lineageTag: 869f9d7f-46ae-46b4-b03e-c1df24a294b3
+	sourceLineageTag: [dbo].[dim_supplier]
+
+	column Supplier
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 55b8d71b-a707-4b73-a0cc-08d2a872143d
+		sourceLineageTag: Supplier
+		summarizeBy: none
+		sourceColumn: Supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 3786dbef-ccd6-40c1-8c99-437ad5a6dab1
+		sourceLineageTag: SupplierKey
+		summarizeBy: count
+		sourceColumn: SupplierKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_supplier = entity
+		mode: directLake
+		source
+			entityName: dim_supplier
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

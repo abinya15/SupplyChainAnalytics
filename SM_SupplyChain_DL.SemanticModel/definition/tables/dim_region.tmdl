@@ -1,0 +1,34 @@
+table dim_region
+	lineageTag: d50a3f41-414b-4c31-aadf-95d766c472f9
+	sourceLineageTag: [dbo].[dim_region]
+
+	column PlantRegion
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b9ada711-0c91-4508-882a-65cde6bc3148
+		sourceLineageTag: PlantRegion
+		summarizeBy: none
+		sourceColumn: PlantRegion
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: b163a485-02de-4ba1-9361-b40a8c105332
+		sourceLineageTag: RegionKey
+		summarizeBy: count
+		sourceColumn: RegionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_region = entity
+		mode: directLake
+		source
+			entityName: dim_region
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

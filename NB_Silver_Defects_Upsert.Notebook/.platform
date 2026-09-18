@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "NB_Silver_Defects_Upsert"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d07d2f82-52c1-8fc5-44b6-7188626a0d3f"
+  }
+}

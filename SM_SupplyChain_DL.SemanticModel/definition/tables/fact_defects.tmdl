@@ -1,0 +1,89 @@
+table fact_defects
+	lineageTag: d593be2e-d912-4ac9-bac8-16afd3cd3f02
+	sourceLineageTag: [dbo].[fact_defects]
+
+	column DefectID
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: dc50e672-fd11-4fc0-88c5-f4fdbd317fe2
+		sourceLineageTag: DefectID
+		summarizeBy: none
+		sourceColumn: DefectID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: b1a2b82b-291c-4c13-893b-238efac6f135
+		sourceLineageTag: SupplierKey
+		summarizeBy: count
+		sourceColumn: SupplierKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionKey
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 97868bf0-b0c3-4b40-8886-594b49d18bd8
+		sourceLineageTag: RegionKey
+		summarizeBy: count
+		sourceColumn: RegionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: f6f62eb4-5a22-4bb1-8057-51d5c4672698
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DefectType
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: baa49c5d-4f22-4a9e-9623-8cec99b478f3
+		sourceLineageTag: DefectType
+		summarizeBy: none
+		sourceColumn: DefectType
+
+		annotation SummarizationSetBy = Automatic
+
+	column CostImpact
+		dataType: double
+		sourceProviderType: float
+		lineageTag: 90bceed3-dbaf-4a56-9ff6-f358424c3b26
+		sourceLineageTag: CostImpact
+		summarizeBy: sum
+		sourceColumn: CostImpact
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _ingested_at
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 2df7cfa4-3f9a-4c32-b568-3e7debf074f8
+		sourceLineageTag: _ingested_at
+		summarizeBy: none
+		sourceColumn: _ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_defects = entity
+		mode: directLake
+		source
+			entityName: fact_defects
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
