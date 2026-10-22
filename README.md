@@ -2,6 +2,15 @@
 
 An end-to-end data engineering and business intelligence solution built natively in Microsoft Fabric, designed to track supply chain quality, monitor supplier defect rates, and analyze the financial impact of manufacturing issues.
 
+
+## 🎯 Business Value
+This solution transforms raw, disconnected manufacturing logs into an actionable, enterprise-grade intelligence platform. By centralizing defect data and automating the transformation pipeline, supply chain managers can:
+* **Identify High-Risk Suppliers:** Instantly isolate vendors contributing to the highest volume of critical defects.
+* **Quantify Financial Impact:** Track the exact cost of quality-assurance failures across different product lines and regions.
+* **Secure Regional Data:** Ensure regional directors only access metrics relevant to their specific territories via automated Row-Level Security (RLS).
+* **Accelerate Reporting:** Leverage Direct Lake technology to remove data import latency, providing executives with near real-time dashboards.
+
+
 ```mermaid
 graph LR
     A[Raw Data] -->|Ingestion| B[(Bronze Lakehouse)]
@@ -44,6 +53,17 @@ This solution transforms raw, disconnected manufacturing logs into an actionable
 * **Secure Regional Data:** Ensure regional directors only access metrics relevant to their specific territories via automated Row-Level Security (RLS).
 * **Accelerate Reporting:** Leverage Direct Lake technology to remove data import latency, providing executives with near real-time dashboards.
 
+## 📈 Power BI Dashboard
+<img width="1500" height="841" alt="image" src="https://github.com/user-attachments/assets/fb493a75-6d41-4eed-9300-d6a234382591" />
+
+
+### Key Metrics Analyzed:
+* Total Defect Count & Financial Cost Impact
+* Supplier Quality Scorecards
+* Regional Defect Distribution
+
+
+
 ## 💻 Key Code Highlights
 
 ### PySpark: Schema Enforcement & Data Cleansing (Gold Layer)
@@ -67,13 +87,3 @@ fact_defects = silver_active_df \
 # Hard drop to clear metadata cache before overwriting
 spark.sql("DROP TABLE IF EXISTS LH_SupplyChain_Gold.fact_defects")
 fact_defects.write.format("delta").mode("overwrite").saveAsTable("LH_SupplyChain_Gold.fact_defects")
-
-
-## 📈 Power BI Dashboard
-<img width="1500" height="841" alt="image" src="https://github.com/user-attachments/assets/fb493a75-6d41-4eed-9300-d6a234382591" />
-
-
-### Key Metrics Analyzed:
-* Total Defect Count & Financial Cost Impact
-* Supplier Quality Scorecards
-* Regional Defect Distribution
