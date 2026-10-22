@@ -2,6 +2,42 @@
 
 **Overview:** In this project, we track supply chain quality, monitor supplier defect rates, and analyze the financial impact of manufacturing issues across global plants. The solution centralizes disconnected data, applies strict schema enforcement, and delivers real-time insights to regional directors through a secure, automated pipeline.
 
+```mermaid
+graph LR
+    subgraph External
+        A[Raw Supply Chain Logs]
+    end
+
+    subgraph "Fabric OneLake (Data Engineering)"
+        B[(Bronze Lakehouse <br/> Raw)] -->|PySpark <br/> Cleansing| C[(Silver Lakehouse <br/> Cleaned)]
+        C -->|Star Schema <br/> Modeling| D[(Gold Lakehouse <br/> Business Ready)]
+    end
+
+    subgraph "Power BI (Analytics Layer)"
+        E[Direct Lake <br/> Semantic Model] 
+        F[Interactive <br/> Dashboard]
+    end
+
+    subgraph "CI/CD Lifecycle"
+        G[Azure DevOps <br/> Git Repo]
+    end
+
+    A -->|Ingestion| B
+    D -.->|Zero Copy| E
+    E -->|DAX & RLS| F
+    
+    G -.->|Version Control| B
+    G -.->|Version Control| E
+
+    style A fill:#f9f9f9,stroke:#333,stroke-width:1px
+    style B fill:#CD7F32,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#C0C0C0,stroke:#333,stroke-width:2px,color:#000
+    style D fill:#FFD700,stroke:#333,stroke-width:2px,color:#000
+    style E fill:#00A4EF,stroke:#333,stroke-width:2px,color:#fff
+    style F fill:#F2C811,stroke:#333,stroke-width:2px,color:#000
+    style G fill:#0078D7,stroke:#333,stroke-width:2px,color:#fff
+```
+
 The following Microsoft Fabric workloads were utilized for this project delivery:
 1. **Data Engineering** (Synapse Data Engineering, PySpark, OneLake)
 2. **Data Analysis** (Power BI, Direct Lake Semantic Models, DAX)
