@@ -46,7 +46,6 @@ The following Microsoft Fabric workloads were utilized for this project delivery
 ---
 
 ## 🏗️ Project Architecture
-*(Upload/Drag-and-drop an architecture diagram here using draw.io or Excalidraw)*
 
 Inside the Fabric-enabled workspace, the end-to-end Medallion architecture was established to move data from raw ingestion to business-ready insights.
 
