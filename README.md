@@ -1,76 +1,68 @@
-# 🏭 Supply Chain Analytics in Microsoft Fabric
+# 🏭 Supply Chain Analytics: End-to-End Microsoft Fabric Project
 
-An end-to-end data engineering and business intelligence solution built natively in Microsoft Fabric, designed to track supply chain quality, monitor supplier defect rates, and analyze the financial impact of manufacturing issues.
+**Overview:** In this project, we track supply chain quality, monitor supplier defect rates, and analyze the financial impact of manufacturing issues across global plants. The solution centralizes disconnected data, applies strict schema enforcement, and delivers real-time insights to regional directors through a secure, automated pipeline.
 
+The following Microsoft Fabric workloads were utilized for this project delivery:
+1. **Data Engineering** (Synapse Data Engineering, PySpark, OneLake)
+2. **Data Analysis** (Power BI, Direct Lake Semantic Models, DAX)
+3. **CI/CD & Lifecycle Management** (Deployment Pipelines, Azure DevOps)
 
-## 🎯 Business Value
-This solution transforms raw, disconnected manufacturing logs into an actionable, enterprise-grade intelligence platform. By centralizing defect data and automating the transformation pipeline, supply chain managers can:
-* **Identify High-Risk Suppliers:** Instantly isolate vendors contributing to the highest volume of critical defects.
-* **Quantify Financial Impact:** Track the exact cost of quality-assurance failures across different product lines and regions.
-* **Secure Regional Data:** Ensure regional directors only access metrics relevant to their specific territories via automated Row-Level Security (RLS).
-* **Accelerate Reporting:** Leverage Direct Lake technology to remove data import latency, providing executives with near real-time dashboards.
+---
 
+## 🏗️ Project Architecture
+*(Upload/Drag-and-drop an architecture diagram here using draw.io or Excalidraw)*
 
-```mermaid
-graph LR
-    A[Raw Data] -->|Ingestion| B[(Bronze Lakehouse)]
-    B -->|PySpark Clean| C[(Silver Lakehouse)]
-    C -->|Star Schema| D[(Gold Lakehouse)]
-    D -->|Direct Lake| E[Semantic Model]
-    E -->|DAX & RLS| F[Power BI Dashboard]
-    
-    style B fill:#CD7F32,stroke:#333,stroke-width:2px,color:#fff
-    style C fill:#C0C0C0,stroke:#333,stroke-width:2px,color:#000
-    style D fill:#FFD700,stroke:#333,stroke-width:2px,color:#000
-    style E fill:#00A4EF,stroke:#333,stroke-width:2px,color:#fff
-    style F fill:#F2C811,stroke:#333,stroke-width:2px,color:#000
-```
+Inside the Fabric-enabled workspace, the end-to-end Medallion architecture was established to move data from raw ingestion to business-ready insights.
 
-## 🏗️ Architecture & Tech Stack
-* **Platform:** Microsoft Fabric
-* **Data Engineering:** PySpark, Notebooks
-* **Storage:** OneLake, Delta Parquet (Medallion Architecture)
-* **Data Modeling:** Power BI Direct Lake Semantic Model, DAX
-* **CI/CD:** Fabric Deployment Pipelines (Dev/Test/Prod), Git Integration
+---
 
-## 🔄 CI/CD & Lifecycle Management
-* Established a full deployment pipeline managing isolated **Development, Test, and Production** environments.
-* Integrated with Git for version control, enabling push-button code promotion and enterprise-grade release management.
+## 1. Workspace & CI/CD Setup
+To ensure enterprise-grade development, three isolated workspaces were created: **Development**, **Test**, and **Production**. 
+The Dev workspace is backed by Azure DevOps (Git Integration) for version control. A Fabric **Deployment Pipeline** was configured to enable seamless, push-button code promotion across environments, ensuring that production data is never accidentally corrupted by development testing.
 
-## ⚙️ Data Pipeline (Medallion Architecture)
-1. **Bronze Layer:** Raw supply chain data ingestion.
-2. **Silver Layer:** Data cleaning, deduplication, and transformation using PySpark. Handled schema enforcement and timestamp formatting.
-3. **Gold Layer:** Star schema optimization. Created `fact_defects` and dimensional tables (`dim_supplier`, `dim_region`, `dim_date`) saved as managed Delta tables.
+*(Drag and drop a screenshot of your Deployment Pipeline UI showing Dev -> Test -> Prod here)*
 
-## 📊 Semantic Model & Security
-* Configured a **Direct Lake** semantic model to query OneLake files directly without data duplication or import lag.
-* Implemented **Row-Level Security (RLS)** via DAX to restrict regional managers to viewing only defects within their assigned territories.
+---
 
-## 🎯 Business Value
-This solution transforms raw, disconnected manufacturing logs into an actionable, enterprise-grade intelligence platform. By centralizing defect data and automating the transformation pipeline, supply chain managers can:
-* **Identify High-Risk Suppliers:** Instantly isolate vendors contributing to the highest volume of critical defects.
-* **Quantify Financial Impact:** Track the exact cost of quality-assurance failures across different product lines and regions.
-* **Secure Regional Data:** Ensure regional directors only access metrics relevant to their specific territories via automated Row-Level Security (RLS).
-* **Accelerate Reporting:** Leverage Direct Lake technology to remove data import latency, providing executives with near real-time dashboards.
+## 2. Data Engineering (Medallion Architecture)
+The dataset was extracted, transformed, and loaded using PySpark Notebooks to build a structured Medallion architecture in OneLake. All tables are stored in the optimized Delta Parquet format.
 
-## 📈 Power BI Dashboard
-<img width="1500" height="841" alt="image" src="https://github.com/user-attachments/assets/fb493a75-6d41-4eed-9300-d6a234382591" />
+* **Bronze Layer:** Raw supply chain and defect data ingestion.
+* **Silver Layer:** Data cleaning and deduplication.
+* **Gold Layer:** Star schema optimization. Dimension tables (`dim_region`, `dim_supplier`) and a central fact table (`fact_defects`) were created. 
 
+**Handling Schema Complexities:**
+The underlying Analysis Services engine requires strict data types. Using PySpark, complex arrays were flattened, special characters in headers were scrubbed, and ingestion timestamps were explicitly cast to standard dates to ensure semantic model compatibility.
 
-### Key Metrics Analyzed:
-* Total Defect Count & Financial Cost Impact
-* Supplier Quality Scorecards
-* Regional Defect Distribution
+# Overwriting as a managed Delta table
+spark.sql("DROP TABLE IF EXISTS LH_SupplyChain_Gold.fact_defects")
+fact_defects.write.format("delta").mode("overwrite").saveAsTable("LH_SupplyChain_Gold.fact_defects")
 
+## Deployment Pipeline
 
+<img width="1638" height="526" alt="image" src="https://github.com/user-attachments/assets/00ada951-2f70-4653-a25b-a27e50906e88" />
 
-## 💻 Key Code Highlights
+## Lakehouse SQL Endpoint
 
-### PySpark: Schema Enforcement & Data Cleansing (Gold Layer)
-Cleaned complex data types and dynamically cast timestamps to ensure complete compatibility with the Analysis Services modeling engine:
+<img width="1649" height="984" alt="image" src="https://github.com/user-attachments/assets/754aaf25-af9e-410b-a714-1feea23955b6" />
+
+## Semantic Model
+
+<img width="1710" height="984" alt="image" src="https://github.com/user-attachments/assets/25416f6e-5e65-4c3e-bac8-1606b4d9bd21" />
+
+// DAX Snippet: Time Intelligence & High-Impact Analysis
+Total Cost Impact = SUM('fact_defects'[CostImpact])
+
+Defects Last Month = CALCULATE([Total Defects], PREVIOUSMONTH('dim_date'[DateKey]))
+
+Critical Defects = CALCULATE([Total Defects], 'fact_defects'[CostImpact] >= 5000)
+
+## Supply Chain Dashboard
+<img width="1502" height="841" alt="image" src="https://github.com/user-attachments/assets/a6775bfb-6e6d-406a-9ac2-83163bcf7867" />
+
 
 ```python
-# Join surrogate keys and format timestamps for Direct Lake compatibility
+# PySpark Snippet: Joining surrogate keys and formatting for Direct Lake
 fact_defects = silver_active_df \
     .join(dim_supplier, on="Supplier", how="left") \
     .join(dim_region, on="PlantRegion", how="left") \
@@ -81,9 +73,9 @@ fact_defects = silver_active_df \
         col("Date").alias("DateKey"),
         col("DefectType"),
         col("CostImpact"),
-        col("_ingested_at").cast("date") # Standardized for Power BI
+        col("_ingested_at").cast("date") # Standardized timestamp
     )
+    
 
-# Hard drop to clear metadata cache before overwriting
-spark.sql("DROP TABLE IF EXISTS LH_SupplyChain_Gold.fact_defects")
-fact_defects.write.format("delta").mode("overwrite").saveAsTable("LH_SupplyChain_Gold.fact_defects")
+
+
