@@ -38,7 +38,8 @@ graph LR
 * Implemented **Row-Level Security (RLS)** via DAX to restrict regional managers to viewing only defects within their assigned territories.
 
 ## 📈 Power BI Dashboard
-*(Drag and drop your dashboard screenshot here)*
+<img width="1500" height="841" alt="image" src="https://github.com/user-attachments/assets/fb493a75-6d41-4eed-9300-d6a234382591" />
+
 
 ### Key Metrics Analyzed:
 * Total Defect Count & Financial Cost Impact
