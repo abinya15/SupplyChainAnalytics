@@ -37,6 +37,12 @@ The underlying Analysis Services engine requires strict data types. Using PySpar
 # Overwriting as a managed Delta table
 spark.sql("DROP TABLE IF EXISTS LH_SupplyChain_Gold.fact_defects")
 fact_defects.write.format("delta").mode("overwrite").saveAsTable("LH_SupplyChain_Gold.fact_defects")
+// DAX Snippet: Time Intelligence & High-Impact Analysis
+Total Cost Impact = SUM('fact_defects'[CostImpact])
+
+Defects Last Month = CALCULATE([Total Defects], PREVIOUSMONTH('dim_date'[DateKey]))
+
+Critical Defects = CALCULATE([Total Defects], 'fact_defects'[CostImpact] >= 5000)
 
 ## Deployment Pipeline
 
@@ -49,13 +55,6 @@ fact_defects.write.format("delta").mode("overwrite").saveAsTable("LH_SupplyChain
 ## Semantic Model
 
 <img width="1710" height="984" alt="image" src="https://github.com/user-attachments/assets/25416f6e-5e65-4c3e-bac8-1606b4d9bd21" />
-
-// DAX Snippet: Time Intelligence & High-Impact Analysis
-Total Cost Impact = SUM('fact_defects'[CostImpact])
-
-Defects Last Month = CALCULATE([Total Defects], PREVIOUSMONTH('dim_date'[DateKey]))
-
-Critical Defects = CALCULATE([Total Defects], 'fact_defects'[CostImpact] >= 5000)
 
 ## Supply Chain Dashboard
 <img width="1502" height="841" alt="image" src="https://github.com/user-attachments/assets/a6775bfb-6e6d-406a-9ac2-83163bcf7867" />
