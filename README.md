@@ -31,11 +31,11 @@ graph LR
 * **Data Engineering:** PySpark, Notebooks
 * **Storage:** OneLake, Delta Parquet (Medallion Architecture)
 * **Data Modeling:** Power BI Direct Lake Semantic Model, DAX
-* **CI/CD:** Fabric Deployment Pipelines (Dev/Test/Prod), Azure DevOps Git Integration
+* **CI/CD:** Fabric Deployment Pipelines (Dev/Test/Prod), Git Integration
 
 ## 🔄 CI/CD & Lifecycle Management
 * Established a full deployment pipeline managing isolated **Development, Test, and Production** environments.
-* Integrated with Azure DevOps (Git) for version control, enabling push-button code promotion and enterprise-grade release management.
+* Integrated with Git for version control, enabling push-button code promotion and enterprise-grade release management.
 
 ## ⚙️ Data Pipeline (Medallion Architecture)
 1. **Bronze Layer:** Raw supply chain data ingestion.
