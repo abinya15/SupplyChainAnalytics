@@ -30,7 +30,7 @@ table dim_date
 		sourceProviderType: int
 		lineageTag: 4d265a9b-9d1f-43f9-bd15-d64481819dc8
 		sourceLineageTag: Year
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Year
 
 		annotation SummarizationSetBy = Automatic
@@ -41,7 +41,7 @@ table dim_date
 		sourceProviderType: int
 		lineageTag: bd31be66-1586-4d11-9981-dbfdaf2fa430
 		sourceLineageTag: Quarter
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Quarter
 
 		annotation SummarizationSetBy = Automatic
@@ -52,7 +52,7 @@ table dim_date
 		sourceProviderType: int
 		lineageTag: f82d46a5-7fa2-4628-8561-e31c4d0f62bc
 		sourceLineageTag: Month
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Month
 
 		annotation SummarizationSetBy = Automatic
@@ -63,7 +63,7 @@ table dim_date
 		sourceProviderType: int
 		lineageTag: 0e533054-f642-4579-b6c3-d2e56bd2c787
 		sourceLineageTag: Day
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: Day
 
 		annotation SummarizationSetBy = Automatic

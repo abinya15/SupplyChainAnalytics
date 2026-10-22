@@ -2,6 +2,39 @@ table fact_defects
 	lineageTag: d593be2e-d912-4ac9-bac8-16afd3cd3f02
 	sourceLineageTag: [dbo].[fact_defects]
 
+	measure 'Total Defects' = COUNT(fact_defects[DefectID])
+		formatString: 0
+		lineageTag: f4292f7d-83ac-45c2-a95b-59362ecf9b61
+
+		changedProperty = Name
+
+	measure 'Total Cost Impact' = SUM(fact_defects[CostImpact])
+		lineageTag: ba4f01f6-b830-4f38-83ce-2d5cf6da2dbc
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Cost per Defect' = AVERAGE(fact_defects[CostImpact])
+		lineageTag: 994a8a0f-6ab6-41e5-80cc-7d18a872fb8c
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Defects Last Month' = CALCULATE([Total Defects], PREVIOUSMONTH('dim_date'[DateKey]))
+		formatString: 0
+		lineageTag: f8b21c2f-a167-4b90-9cb2-345f7982b007
+
+		changedProperty = Name
+
+	measure '% of Total Cost' = DIVIDE([Total Cost Impact], CALCULATE([Total Cost Impact], ALL(fact_defects)))
+		lineageTag: 0b25cedb-9845-4aac-918b-0655c0f7b9d0
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column DefectID
 		dataType: string
 		sourceProviderType: varchar(8000)
@@ -18,7 +51,7 @@ table fact_defects
 		sourceProviderType: bigint
 		lineageTag: b1a2b82b-291c-4c13-893b-238efac6f135
 		sourceLineageTag: SupplierKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: SupplierKey
 
 		annotation SummarizationSetBy = Automatic
@@ -29,7 +62,7 @@ table fact_defects
 		sourceProviderType: bigint
 		lineageTag: 97868bf0-b0c3-4b40-8886-594b49d18bd8
 		sourceLineageTag: RegionKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: RegionKey
 
 		annotation SummarizationSetBy = Automatic

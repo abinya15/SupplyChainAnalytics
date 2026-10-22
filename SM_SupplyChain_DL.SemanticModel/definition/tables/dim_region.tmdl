@@ -18,7 +18,7 @@ table dim_region
 		sourceProviderType: bigint
 		lineageTag: b163a485-02de-4ba1-9361-b40a8c105332
 		sourceLineageTag: RegionKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: RegionKey
 
 		annotation SummarizationSetBy = Automatic

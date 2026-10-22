@@ -1,0 +1,12 @@
+relationship 6b4fd8b1-9563-797a-3820-4bc453bcef45
+	fromColumn: fact_defects.DateKey
+	toColumn: dim_date.DateKey
+
+relationship ed6c36ca-6c0f-855f-3273-5ab2b92061e4
+	fromColumn: fact_defects.RegionKey
+	toColumn: dim_region.RegionKey
+
+relationship df7e7fd7-7401-4c47-dd19-5e1dd30e48e2
+	fromColumn: fact_defects.SupplierKey
+	toColumn: dim_supplier.SupplierKey
+

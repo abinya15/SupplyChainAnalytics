@@ -18,7 +18,7 @@ table dim_supplier
 		sourceProviderType: bigint
 		lineageTag: 3786dbef-ccd6-40c1-8c99-437ad5a6dab1
 		sourceLineageTag: SupplierKey
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: SupplierKey
 
 		annotation SummarizationSetBy = Automatic

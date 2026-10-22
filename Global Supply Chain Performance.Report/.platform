@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "SemanticModel",
-    "displayName": "Test_SM"
+    "type": "Report",
+    "displayName": "Global Supply Chain Performance"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "f4482ec1-8f56-8fbb-41a7-2633a593c008"
+    "logicalId": "6728f45c-cf35-a155-4476-3d0899b66b04"
   }
 }

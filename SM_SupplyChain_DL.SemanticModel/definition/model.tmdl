@@ -11,8 +11,12 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_QueryOrder = ["DatabaseQuery"]
 
+annotation PBI_ProTooling = ["WebModelingEdit"]
+
 ref table dim_region
 ref table dim_date
 ref table dim_supplier
 ref table fact_defects
+
+ref role APAC_Manager
 

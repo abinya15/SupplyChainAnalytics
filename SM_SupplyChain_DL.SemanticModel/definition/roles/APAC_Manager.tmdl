@@ -1,0 +1,7 @@
+role APAC_Manager
+	modelPermission: read
+
+	tablePermission dim_region = [PlantRegion] == "APAC"
+
+	annotation PBI_Id = f9364a7477174c44bc3685bbbc4b848c
+
