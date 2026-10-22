@@ -2,6 +2,21 @@
 
 An end-to-end data engineering and business intelligence solution built natively in Microsoft Fabric, designed to track supply chain quality, monitor supplier defect rates, and analyze the financial impact of manufacturing issues.
 
+```mermaid
+graph LR
+    A[Raw Data] -->|Ingestion| B[(Bronze Lakehouse)]
+    B -->|PySpark Clean| C[(Silver Lakehouse)]
+    C -->|Star Schema| D[(Gold Lakehouse)]
+    D -->|Direct Lake| E[Semantic Model]
+    E -->|DAX & RLS| F[Power BI Dashboard]
+    
+    style B fill:#CD7F32,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#C0C0C0,stroke:#333,stroke-width:2px,color:#000
+    style D fill:#FFD700,stroke:#333,stroke-width:2px,color:#000
+    style E fill:#00A4EF,stroke:#333,stroke-width:2px,color:#fff
+    style F fill:#F2C811,stroke:#333,stroke-width:2px,color:#000
+```
+
 ## 🏗️ Architecture & Tech Stack
 * **Platform:** Microsoft Fabric
 * **Data Engineering:** PySpark, Notebooks
