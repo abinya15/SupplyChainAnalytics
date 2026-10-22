@@ -20,7 +20,9 @@ Inside the Fabric-enabled workspace, the end-to-end Medallion architecture was e
 To ensure enterprise-grade development, three isolated workspaces were created: **Development**, **Test**, and **Production**. 
 The Dev workspace is backed by Azure DevOps (Git Integration) for version control. A Fabric **Deployment Pipeline** was configured to enable seamless, push-button code promotion across environments, ensuring that production data is never accidentally corrupted by development testing.
 
-*(Drag and drop a screenshot of your Deployment Pipeline UI showing Dev -> Test -> Prod here)*
+## Deployment Pipeline
+
+<img width="1638" height="526" alt="image" src="https://github.com/user-attachments/assets/00ada951-2f70-4653-a25b-a27e50906e88" />
 
 ---
 
@@ -30,6 +32,15 @@ The dataset was extracted, transformed, and loaded using PySpark Notebooks to bu
 * **Bronze Layer:** Raw supply chain and defect data ingestion.
 * **Silver Layer:** Data cleaning and deduplication.
 * **Gold Layer:** Star schema optimization. Dimension tables (`dim_region`, `dim_supplier`) and a central fact table (`fact_defects`) were created. 
+
+
+## Gold Lakehouse SQL Endpoint
+
+<img width="1649" height="984" alt="image" src="https://github.com/user-attachments/assets/754aaf25-af9e-410b-a714-1feea23955b6" />
+
+## Semantic Model
+
+<img width="1710" height="984" alt="image" src="https://github.com/user-attachments/assets/25416f6e-5e65-4c3e-bac8-1606b4d9bd21" />
 
 **Handling Schema Complexities:**
 The underlying Analysis Services engine requires strict data types. Using PySpark, complex arrays were flattened, special characters in headers were scrubbed, and ingestion timestamps were explicitly cast to standard dates to ensure semantic model compatibility.
@@ -43,18 +54,6 @@ Total Cost Impact = SUM('fact_defects'[CostImpact])
 Defects Last Month = CALCULATE([Total Defects], PREVIOUSMONTH('dim_date'[DateKey]))
 
 Critical Defects = CALCULATE([Total Defects], 'fact_defects'[CostImpact] >= 5000)
-
-## Deployment Pipeline
-
-<img width="1638" height="526" alt="image" src="https://github.com/user-attachments/assets/00ada951-2f70-4653-a25b-a27e50906e88" />
-
-## Lakehouse SQL Endpoint
-
-<img width="1649" height="984" alt="image" src="https://github.com/user-attachments/assets/754aaf25-af9e-410b-a714-1feea23955b6" />
-
-## Semantic Model
-
-<img width="1710" height="984" alt="image" src="https://github.com/user-attachments/assets/25416f6e-5e65-4c3e-bac8-1606b4d9bd21" />
 
 ## Supply Chain Dashboard
 <img width="1502" height="841" alt="image" src="https://github.com/user-attachments/assets/a6775bfb-6e6d-406a-9ac2-83163bcf7867" />
